@@ -31,7 +31,6 @@
     <title>SwiftCart</title>
 </head>
 <body>
-    <header>
         <!-- Navbar -->
         <nav class="navbar bg-[#ffffff] md:px-8 bg-base-100 sticky top-0 left-0 z-50 shadow-sm ">
             <div class="navbar-start">
@@ -70,9 +69,10 @@
             </div>
         </nav>
 
+        <header>
         <!-- Banner -->
-        <section class="relative bg-[url('assets/banner-image.jpg')] bg-cover bg-center h-[85vh] flex items-center">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#111827]/90 via-[#111827]/70 to-[#111827]/20"></div>
+        <section class="relative bg-[url('assets/banner-image.jpg')] bg-cover bg-center h-[85vh] flex items-center"> 
+            <div class="absolute inset-0 bg-gradient-to-r from-[#111827]/90 via-[#111827]/70 to-[#111827]/20 z-0"></div>
             <div class="relative z-10 max-w-2xl px-8 text-left">
                 <h1 class="text-3xl md:text-5xl font-bold text-white mb-4"> Best Collection For You </h1>
                 <p class="text-white md:text-lg mb-6"> Discover the latest trends in fashion, electronics, and more. Shop with confidence and style at SwiftCart. </p>
@@ -80,7 +80,7 @@
             </div>
         </section>
     </header>
-    <main>
+    <main >
 
 <section class="py-16 bg-gray-50">
   <div class="max-w-7xl mx-auto px-8 text-center">
@@ -134,6 +134,19 @@
     </div>
   </div>
 </section>
+
+<!--  -->
+<section class="py-16 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Trending Now</h2>
+    <p class="text-gray-600 mb-12">Check out our top-rated products</p>
+
+    <div id="trending-products" class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+      <!-- Products will be injected here by JS -->
+    </div>
+  </div>
+</section>
+
 
 
     </main>
