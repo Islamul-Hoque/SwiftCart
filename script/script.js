@@ -22,11 +22,11 @@ fetch("footer.html")
 function createProductCard(product) {
     const productCard = document.createElement("div");
     productCard.className =
-        "bg-white shadow-sm rounded-lg p-6 hover:shadow-md transition flex flex-col h-full max-w-sm";
+        "bg-white shadow-sm rounded-lg overflow-hidden hover:shadow-md transition flex flex-col h-full ";
 
     productCard.innerHTML = `
-    <img src="${product.image}" alt="${product.title}" class="h-48 w-full object-contain mb-4">
-
+    <img src="${product.image}" alt="${product.title}" class="h-48 p-6 w-full bg-slate-200 object-contain mb-4">
+<div class="p-6">
     <div class="flex items-center justify-between mb-2">
         <p class="text-xs font-medium bg-[#EEF2FF] text-[#4F46E5] px-2 py-1 rounded-[0.7rem]">${product.category}</p>
         <div class="flex items-center text-yellow-500">
@@ -43,6 +43,7 @@ function createProductCard(product) {
         <button onclick="showDetails(${product.id})" class="w-1/2 px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 flex items-center justify-center gap-2"> <i class="fas fa-eye"></i> Details </button>
         <button class="w-1/2 px-4 py-2 bg-[#4F46E5] text-white rounded-md hover:bg-[#4338CA] flex items-center justify-center gap-2">  <i class="fas fa-shopping-cart"></i> Add </button>
     </div>
+ </div>
     `;
     return productCard;
 }
