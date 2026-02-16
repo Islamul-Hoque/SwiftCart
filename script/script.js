@@ -17,6 +17,15 @@ fetch("footer.html")
         document.getElementById("footer").innerHTML = data;
     });
 
+// Navbar active nav link 
+document.querySelectorAll(".nav-link").forEach(link => {
+    if (link.href === window.location.href) {
+        link.classList.add("active");
+    } else {
+        link.classList.remove("active");
+    }
+});
+
 
 // Reusable Product Card 
 function createProductCard(product) {
