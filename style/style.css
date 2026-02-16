@@ -1,0 +1,23 @@
+*{
+    font-family: "Inter", sans-serif;
+}
+
+.Geist-Font{
+    font-family: "Geist", sans-serif;
+}
+
+/* text-color */
+.Black{
+    color: #4B5563;
+}
+
+/* active-class */
+/* .active{
+    background-color:#00bf83;
+    color: white;
+} */
+
+.active {
+    color: #2563eb;
+    font-weight: 600;
+}
