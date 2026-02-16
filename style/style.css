@@ -1,23 +1,29 @@
-*{
+* {
     font-family: "Inter", sans-serif;
 }
 
-.Geist-Font{
+.Geist-Font {
     font-family: "Geist", sans-serif;
 }
 
 /* text-color */
-.Black{
-    color: #4B5563;
+.Black {
+    color: #4b5563;
 }
 
+
 /* active-class */
-/* .active{
-    background-color:#00bf83;
-    color: white;
-} */
+.category-btn {
+    background-color: #eef2ff;
+    color: #4f46e5;
+}
+
+.category-btn:hover {
+    background-color: #e0e7ff;
+}
 
 .active {
-    color: #2563eb;
+    background-color: #6366f1 !important;
+    color: #ffffff !important;
     font-weight: 600;
 }
