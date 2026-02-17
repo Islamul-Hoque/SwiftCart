@@ -1,6 +1,36 @@
-// Reusable get id Function
-function getId(id) {
-    return document.getElementById(id);
+// Active class for nav links
+function setActiveNavLink() {
+    let currentPath = window.location.pathname;
+
+    if (currentPath.length > 1 && currentPath.endsWith('/')) {
+        currentPath = currentPath.slice(0, -1);
+    }
+
+    let currentPage = currentPath.split('/').pop() || 'index.html';
+
+    if (currentPath === '' || currentPath === '/' || currentPage === '') {
+        currentPage = 'index.html';
+    }
+
+    document.querySelectorAll(".nav-link").forEach(link => {
+        if (link.href.includes('#')) {
+            link.classList.remove("active");
+            return;
+        }
+
+        const linkPath = new URL(link.href).pathname;
+        let linkPage = linkPath.split('/').pop() || 'index.html';
+
+        if (linkPath === '' || linkPath === '/') {
+            linkPage = 'index.html';
+        }
+
+        if (linkPage === currentPage) {
+            link.classList.add("active");
+        } else {
+            link.classList.remove("active");
+        }
+    });
 }
 
 // Reusable Navbar
@@ -8,6 +38,7 @@ fetch("navbar.html")
     .then(res => res.text())
     .then(data => {
         document.getElementById("navbar").innerHTML = data;
+        setActiveNavLink(); 
     });
 
 // Reusable Footer
@@ -17,16 +48,6 @@ fetch("footer.html")
         document.getElementById("footer").innerHTML = data;
     });
 
-// Navbar active nav link 
-document.querySelectorAll(".nav-link").forEach(link => {
-    if (link.href === window.location.href) {
-        link.classList.add("active");
-    } else {
-        link.classList.remove("active");
-    }
-});
-
-
 // Reusable Product Card 
 function createProductCard(product) {
     const productCard = document.createElement("div");
@@ -34,31 +55,31 @@ function createProductCard(product) {
         "bg-white shadow-sm rounded-lg overflow-hidden hover:shadow-md transition flex flex-col h-full ";
 
     productCard.innerHTML = `
-    <img src="${product.image}" alt="${product.title}" class="h-48 p-6 w-full bg-slate-200 object-contain mb-4">
-<div class="p-6">
-    <div class="flex items-center justify-between mb-2">
-        <p class="text-xs font-medium bg-[#EEF2FF] text-[#4F46E5] px-2 py-1 rounded-[0.7rem]">${product.category}</p>
-        <div class="flex items-center text-yellow-500">
-            <span>⭐ ${product.rating.rate}</span>
-            <span class="text-gray-500 ml-2">(${product.rating.count})</span>
+        <img src="${product.image}" alt="${product.title}" class="h-48 p-6 w-full bg-slate-200 object-contain mb-4">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-xs font-medium bg-[#EEF2FF] text-[#4F46E5] px-2 py-1 rounded-[0.7rem]">${product.category}</p>
+                <div class="flex items-center text-yellow-500">
+                    <span>⭐ ${product.rating.rate}</span>
+                    <span class="text-gray-500 ml-2">(${product.rating.count})</span>
+                </div>
+            </div>
+        
+            <h3 class="font-semibold text-[0.95rem] text-gray-800 mb-2">${product.title.substring(0, 40)}...</h3>
+            <p class="text-[#252525] font-bold mb-4">$${product.price}</p>
+            <div class="flex-grow"></div>
+        
+            <div class="flex gap-3 mt-auto">
+                <button onclick="showDetails(${product.id})" class="w-1/2 px-4 py-2 cursor-pointer bg-gray-200 rounded-md hover:bg-gray-300 flex items-center justify-center gap-2"> <i class="fas fa-eye"></i> Details </button>
+                <button class="w-1/2 px-4 py-2 bg-[#4F46E5] text-white cursor-pointer rounded-md hover:bg-[#4338CA] flex items-center justify-center gap-2">  <i class="fas fa-shopping-cart"></i> Add </button>
+            </div>
         </div>
-    </div>
-
-    <h3 class="font-semibold text-[0.95rem] text-gray-800 mb-2">${product.title.substring(0, 40)}...</h3>
-    <p class="text-[#252525] font-bold mb-4">$${product.price}</p>
-    <div class="flex-grow"></div>
-
-    <div class="flex gap-3 mt-auto">
-        <button onclick="showDetails(${product.id})" class="w-1/2 px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 flex items-center justify-center gap-2"> <i class="fas fa-eye"></i> Details </button>
-        <button class="w-1/2 px-4 py-2 bg-[#4F46E5] text-white rounded-md hover:bg-[#4338CA] flex items-center justify-center gap-2">  <i class="fas fa-shopping-cart"></i> Add </button>
-    </div>
- </div>
     `;
     return productCard;
 }
 
 
-// Fetch products for Trending Section
+// Fetch products for Trending Section(Home page)
 fetch("https://fakestoreapi.com/products")
     .then((res) => res.json())
     .then((data) => {
@@ -76,13 +97,13 @@ fetch("https://fakestoreapi.com/products")
     .catch((err) => console.error("Error fetching products:", err));
 
 
-// Load categories dynamically 
+// Load All Categories 
 fetch("https://fakestoreapi.com/products/categories")
     .then(res => res.json())
     .then(categories => {
         const categoryContainer = document.getElementById("categories");
 
-        // Add "All" button first
+        // All button for showing all products
         const allBtn = document.createElement("button");
         allBtn.className = "category-btn px-4 py-2 bg-[#EEF2FF] text-[#4F46E5] rounded-[0.7rem] hover:bg-[#E0E7FF]";
         allBtn.textContent = "All";
@@ -92,7 +113,7 @@ fetch("https://fakestoreapi.com/products/categories")
         });
         categoryContainer.appendChild(allBtn);
 
-        // Add other categories
+        // Add categories buttons
         categories.forEach(cat => {
             const btn = document.createElement("button");
             btn.className = "category-btn px-4 py-2 bg-[#EEF2FF] text-[#4F46E5] rounded-[0.7rem] hover:bg-[#E0E7FF]";
@@ -104,23 +125,18 @@ fetch("https://fakestoreapi.com/products/categories")
             categoryContainer.appendChild(btn);
         });
 
-        // Initially set "All" active
+        // Initially set All btn as active 
         setActiveCategory(allBtn);
         loadAllProducts();
     });
 
-// Function: set active category
+//  active class for category buttons
 function setActiveCategory(activeBtn) {
-    // Remove active class from all buttons
     document.querySelectorAll(".category-btn").forEach(btn => {
         btn.classList.remove("active");
     });
-
-    // Add active class to the clicked button
     activeBtn.classList.add("active");
 }
-
-
 
 
 function loadAllProducts() {
@@ -156,7 +172,6 @@ function showDetails(id) {
             document.getElementById("modal-description").textContent = product.description;
             document.getElementById("modal-price").textContent = `$${product.price}`;
             document.getElementById("modal-rating").textContent = `⭐ ${product.rating.rate} (${product.rating.count})`;
-
-            document.getElementById("product-modal").checked = true; // open modal
+            document.getElementById("product-modal").checked = true; 
         });
 }

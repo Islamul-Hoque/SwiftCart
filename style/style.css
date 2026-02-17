@@ -2,23 +2,30 @@
     font-family: "Inter", sans-serif;
 }
 
-.Geist-Font {
-    font-family: "Geist", sans-serif;
-}
-
-/* text-color */
-.Black {
-    color: #4b5563;
+/*  active-class for nav links */
+.nav-link {
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 6px 12px;
+    border-radius: 0.5rem;
+    color: #4B5563;
 }
 
 .nav-link.active {
-  color: #2563eb;
-  font-weight: 600;  
-  border-bottom: 2px solid #2563eb; 
+    color: #4F46E5;
+    font-weight: 600;
+    background-color: #EEF2FF;
+    border-radius: 0.5rem;
+    padding: 6px 12px;
 }
 
+.nav-link:hover {
+    color: #4F46E5;
+    background-color: #F3F4F6;
+    border-radius: 0.5rem;
+}
 
-/* active-class */
+/* active-class for category buttons */
 .category-btn {
     background-color: #eef2ff;
     color: #4f46e5;
